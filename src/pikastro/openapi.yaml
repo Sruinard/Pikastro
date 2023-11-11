@@ -1,0 +1,171 @@
+swagger: '2.0'
+info:
+  description: Here's a longer description of the custom **OpenAPI** schema
+  title: Solar Panel API
+  version: 2.5.0
+  x-logo:
+    url: 'https://fastapi.tiangolo.com/img/logo-margin/logo-teal.png'
+paths:
+  /api/v1/solar-panels:
+    post:
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/SolarPanel'
+      responses:
+        '200':
+          description: Successful Response
+          schema:
+            $ref: '#/definitions/SolarPanel'
+        '422':
+          description: Validation Error
+          schema:
+            $ref: '#/definitions/HTTPValidationError'
+      operationId: create_solar_panel_api_v1_solar_panels_post
+      summary: Create Solar Panel
+  '/api/v1/solar-panels/{panel_id}':
+    delete:
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: panel_id
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Successful Response
+          schema:
+            $ref: '#/definitions/SolarPanel'
+        '422':
+          description: Validation Error
+          schema:
+            $ref: '#/definitions/HTTPValidationError'
+      operationId: delete_solar_panel_api_v1_solar_panels__panel_id__delete
+      summary: Delete Solar Panel
+    get:
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: panel_id
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Successful Response
+          schema:
+            $ref: '#/definitions/SolarPanel'
+        '422':
+          description: Validation Error
+          schema:
+            $ref: '#/definitions/HTTPValidationError'
+      operationId: read_solar_panel_api_v1_solar_panels__panel_id__get
+      summary: Read Solar Panel
+    put:
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: panel_id
+          required: true
+          type: string
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/SolarPanel'
+      responses:
+        '200':
+          description: Successful Response
+          schema:
+            $ref: '#/definitions/SolarPanel'
+        '422':
+          description: Validation Error
+          schema:
+            $ref: '#/definitions/HTTPValidationError'
+      operationId: update_solar_panel_api_v1_solar_panels__panel_id__put
+      summary: Update Solar Panel
+  /config:
+    get:
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        '200':
+          description: Successful Response
+          schema: {}
+      operationId: get_config_config_get
+      summary: Get Config
+  /health:
+    get:
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        '200':
+          description: Successful Response
+          schema: {}
+      operationId: health_health_get
+      summary: Health
+definitions:
+  HTTPValidationError:
+    properties:
+      detail:
+        items:
+          $ref: '#/definitions/ValidationError'
+        title: Detail
+        type: array
+    title: HTTPValidationError
+    type: object
+  SolarPanel:
+    properties:
+      capacity_kw:
+        title: Capacity Kw
+        type: number
+      is_operational:
+        title: Is Operational
+        type: boolean
+      manufacturer:
+        title: Manufacturer
+        type: string
+      panel_id:
+        title: Panel Id
+        type: string
+    required:
+      - panel_id
+      - manufacturer
+      - capacity_kw
+      - is_operational
+    title: SolarPanel
+    type: object
+  ValidationError:
+    properties:
+      loc:
+        items: {}
+        title: Location
+        type: array
+      msg:
+        title: Message
+        type: string
+      type:
+        title: Error Type
+        type: string
+    required:
+      - loc
+      - msg
+      - type
+    title: ValidationError
+    type: object
+x-components: {}
+x-google-backend:
+  address: 'https://pikastro-api-sandbox-pnoyu3mivq-ez.a.run.app'
+
